@@ -2,11 +2,7 @@ using System;
 
 namespace CoreEscuela.Entidades
 {
-    public class Asignatura
+    public class Asignatura : ObjetoEscuelaBase
     {
-        public Guid Id { get; private set; }
-        public string Nombre { get; set; }
-
-        public Asignatura() => Id = Guid.NewGuid();
     }
 }

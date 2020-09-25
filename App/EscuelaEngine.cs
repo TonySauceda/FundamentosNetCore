@@ -6,7 +6,7 @@ using CoreEscuela.Util;
 
 namespace CoreEscuela.App
 {
-    public class EscuelaEngine
+    public sealed class EscuelaEngine
     {
         public Escuela Escuela { get; set; }
 
@@ -30,10 +30,9 @@ namespace CoreEscuela.App
                 foreach (var alumno in curso.Alumnos)
                 {
                     var rand = new Random();
-                    alumno.Evaluaciones = new List<Evaluaciones>();
                     foreach (var asignatura in curso.Asignaturas)
                     {
-                        alumno.Evaluaciones.Add(new Evaluaciones
+                        alumno.Evaluaciones.Add(new Evaluacion
                         {
                             Alumno = alumno,
                             Asignatura = asignatura,

@@ -3,12 +3,9 @@ using System.Collections.Generic;
 
 namespace CoreEscuela.Entidades
 {
-    public class Alumno
+    public class Alumno : ObjetoEscuelaBase
     {
-        public Guid Id { get; private set; }
-        public string Nombre { get; set; }
-        public List<Evaluaciones> Evaluaciones { get; set; }
-        public Alumno() => Id = Guid.NewGuid();
+        public List<Evaluacion> Evaluaciones { get; set; } = new List<Evaluacion>();
 
         public override string ToString()
         {
