@@ -13,13 +13,15 @@ namespace CoreEscuela
         {
             var engine = new EscuelaEngine();
             engine.Inicializar();
-
-            // engine.Escuela.ImprimirCursos();
-
-            // Printer.DibujarTitulo("Titulo chingon");
-
             Printer.DibujarTitulo("Evaluaciones de los Alumnos");
-            engine.ImprimirEvaluaciones();
+            // engine.ImprimirEvaluaciones();
+
+            Printer.DibujarTitulo("Pruebas de polimorfismo");
+            var alumnoTest = new Alumno() { Nombre = "Tony Sauceda" };
+            ObjetoEscuelaBase objeto = alumnoTest;
+            WriteLine($"Alumno: {alumnoTest.Nombre}, Id: {alumnoTest.Id}, Tipo: {alumnoTest.GetType()}");
+            WriteLine($"Alumno: {objeto.Nombre}, Id: {objeto.Id}, Tipo: {objeto.GetType()}");
+            var listaObjetos = engine.ObtenerListaObtetosEscuela();
         }
     }
 }

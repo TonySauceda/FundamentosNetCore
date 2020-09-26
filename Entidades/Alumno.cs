@@ -6,10 +6,5 @@ namespace CoreEscuela.Entidades
     public class Alumno : ObjetoEscuelaBase
     {
         public List<Evaluacion> Evaluaciones { get; set; } = new List<Evaluacion>();
-
-        public override string ToString()
-        {
-            return $"Id: {Id}, Nombre: {Nombre}";
-        }
     }
 }
