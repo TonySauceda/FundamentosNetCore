@@ -41,7 +41,21 @@ namespace CoreEscuela.App
 
             return resultado;
         }
-
+        public void ImprimirEvaluaciones()
+        {
+            foreach (var curso in Escuela.Cursos)
+            {
+                foreach (var alumno in curso.Alumnos)
+                {
+                    Printer.DibujarTitulo(alumno.ToString());
+                    foreach (var evaluacion in alumno.Evaluaciones)
+                    {
+                        Console.WriteLine(evaluacion.ToString());
+                    }
+                }
+            }
+        }
+        #region Métodos de Carga
         private void CargarEvaluaciones()
         {
             foreach (var curso in Escuela.Cursos)
@@ -58,21 +72,6 @@ namespace CoreEscuela.App
                             Nombre = $"Evaluación: {asignatura.Nombre}",
                             Calificacion = (float)rand.NextDouble() * 5
                         });
-                    }
-                }
-            }
-        }
-
-        public void ImprimirEvaluaciones()
-        {
-            foreach (var curso in Escuela.Cursos)
-            {
-                foreach (var alumno in curso.Alumnos)
-                {
-                    Printer.DibujarTitulo(alumno.ToString());
-                    foreach (var evaluacion in alumno.Evaluaciones)
-                    {
-                        Console.WriteLine(evaluacion.ToString());
                     }
                 }
             }
@@ -126,15 +125,7 @@ namespace CoreEscuela.App
             foreach (var curso in Escuela.Cursos)
                 curso.Alumnos = (CargarAlumnos());
         }
+
+        #endregion
     }
 }
-
-//Remover elementos de una colección con un delegado
-// miEscuala.Cursos.RemoveAll(Predicado);
-// miEscuala.Cursos.RemoveAll(delegate (Curso cur) { return cur.Nombre == "203"; });
-// miEscuala.Cursos.RemoveAll((cur) => cur.Nombre == "103");
-// miEscuala.ImprimirCursos();
-// private static bool Predicado(Curso obj)
-// {
-//     return obj.Nombre == "303";
-// }
