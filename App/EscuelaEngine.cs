@@ -17,7 +17,7 @@ namespace CoreEscuela.App
 
         public void Inicializar()
         {
-            Escuela = new Escuela("Platzi Adademy", 2012, TiposEscuela.Secundaria, "Colombia", "Bogota");
+            Escuela = new Escuela("Platzi Academy", 2012, TiposEscuela.Secundaria, "Colombia", "Bogota");
             CargarCursos();
             CargarAsignaturas();
             CargarEvaluaciones();
