@@ -22,7 +22,9 @@ namespace CoreEscuela
             ObjetoEscuelaBase objeto = alumnoTest;
             WriteLine($"Alumno: {alumnoTest.Nombre}, Id: {alumnoTest.Id}, Tipo: {alumnoTest.GetType()}");
             WriteLine($"Alumno: {objeto.Nombre}, Id: {objeto.Id}, Tipo: {objeto.GetType()}");
-            var listaObjetos = engine.ObtenerListaObtetosEscuela();
+
+            int dummy = 0;
+            var listaObjetos = engine.ObtenerListaObtetosEscuela(out dummy, out dummy, out dummy, out int contadorEvaluaciones);
             // engine.Escuela.LimpiarLugar();
 
             var listaILugar = from obj in listaObjetos
