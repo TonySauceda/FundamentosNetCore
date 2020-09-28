@@ -23,7 +23,7 @@ namespace CoreEscuela.App
             CargarEvaluaciones();
         }
 
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             bool incluirCursos = true,
             bool incluirAsignaturas = true,
             bool incluirAlumnos = true,
@@ -31,7 +31,7 @@ namespace CoreEscuela.App
         {
             return ObtenerListaObtetosEscuela(out int dummy, out dummy, out dummy, out dummy, incluirCursos, incluirAsignaturas, incluirAlumnos, incluirEvaluaciones);
         }
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             out int totalCursos,
             bool incluirCursos = true,
             bool incluirAsignaturas = true,
@@ -40,7 +40,7 @@ namespace CoreEscuela.App
         {
             return ObtenerListaObtetosEscuela(out totalCursos, out int dummy, out dummy, out dummy, incluirCursos, incluirAsignaturas, incluirAlumnos, incluirEvaluaciones);
         }
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             out int totalCursos,
             out int totalAsignaturas,
             bool incluirCursos = true,
@@ -50,7 +50,7 @@ namespace CoreEscuela.App
         {
             return ObtenerListaObtetosEscuela(out totalCursos, out totalAsignaturas, out int dummy, out dummy, incluirCursos, incluirAsignaturas, incluirAlumnos, incluirEvaluaciones);
         }
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             out int totalCursos,
             out int totalAsignaturas,
             out int totalAlumnos,
@@ -61,7 +61,7 @@ namespace CoreEscuela.App
         {
             return ObtenerListaObtetosEscuela(out totalCursos, out totalAsignaturas, out totalAlumnos, out int dummy, incluirCursos, incluirAsignaturas, incluirAlumnos, incluirEvaluaciones);
         }
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+        public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             out int totalCursos,
             out int totalAsignaturas,
             out int totalAlumnos,
