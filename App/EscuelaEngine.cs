@@ -22,20 +22,45 @@ namespace CoreEscuela.App
             CargarAsignaturas();
             CargarEvaluaciones();
         }
-
-        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela()
+        public List<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
+            out int totalCursos,
+            out int totalAsignaturas,
+            out int totalAlumnos,
+            out int totalEvaluaciones,
+            bool incluirCursos = true,
+            bool incluirAsignaturas = true,
+            bool incluirAlumnos = true,
+            bool incluirEvaluaciones = true)
         {
+            totalCursos = totalAsignaturas = totalAlumnos = totalEvaluaciones = 0;
+
             var resultado = new List<ObjetoEscuelaBase>();
             resultado.Add(Escuela);
-            resultado.AddRange(Escuela.Cursos);
+            if (incluirCursos)
+            {
+                resultado.AddRange(Escuela.Cursos);
+                totalCursos = Escuela.Cursos.Count;
+            }
+
             foreach (var curso in Escuela.Cursos)
             {
-                resultado.AddRange(curso.Asignaturas);
-                resultado.AddRange(curso.Alumnos);
-
-                foreach (var alumno in curso.Alumnos)
+                if (incluirAsignaturas)
                 {
-                    resultado.AddRange(alumno.Evaluaciones);
+                    resultado.AddRange(curso.Asignaturas);
+                    totalAsignaturas += curso.Asignaturas.Count;
+                }
+                if (incluirAlumnos)
+                {
+                    resultado.AddRange(curso.Alumnos);
+                    totalAlumnos += curso.Alumnos.Count;
+                }
+                if (incluirEvaluaciones)
+                {
+                    foreach (var alumno in curso.Alumnos)
+                    {
+                        resultado.AddRange(alumno.Evaluaciones);
+                        totalEvaluaciones += alumno.Evaluaciones.Count;
+                    }
                 }
             }
 
