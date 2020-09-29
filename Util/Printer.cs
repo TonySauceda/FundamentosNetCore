@@ -14,5 +14,10 @@ namespace CoreEscuela.Util
             WriteLine($"{"".PadRight((int)Math.Floor((decimal)titulo.Length / 2), ' ')}{titulo.ToUpper()}");
             DibujarLiena(titulo.Length * 2);
         }
+        public static void Beep(int hz, int duracion, int cantidad)
+        {
+            for (int i = 0; i < cantidad; i++)
+                Console.Beep(hz, duracion);
+        }
     }
 }

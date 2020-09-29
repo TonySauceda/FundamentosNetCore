@@ -23,6 +23,70 @@ namespace CoreEscuela.App
             CargarEvaluaciones();
         }
 
+        public void ImprimirDiccionario(Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> diccionario,
+        bool imprimirEvaluaciones = false)
+        {
+            foreach (var obj in diccionario)
+            {
+                if (obj.Key == LlaveDiccionario.Evaluacion)
+                    if (!imprimirEvaluaciones)
+                        continue;
+
+                Printer.DibujarTitulo(obj.Key.ToString());
+                foreach (var val in obj.Value)
+                {
+                    switch (obj.Key)
+                    {
+                        case LlaveDiccionario.Escuela:
+                            Console.WriteLine($"Escuela: {val.Nombre}");
+                            break;
+                        case LlaveDiccionario.Curso:
+                            var curTemp = val as Curso;
+                            if (curTemp != null)
+                            {
+                                Console.WriteLine($"Curso: {val.Nombre}, Total Alumnos: {curTemp.Alumnos.Count}");
+                            }
+                            break;
+                        case LlaveDiccionario.Alumno:
+                            Console.WriteLine($"Alumno: {val.Nombre}");
+                            break;
+                        case LlaveDiccionario.Asignatura:
+                            Console.WriteLine(val);
+                            break;
+                        case LlaveDiccionario.Evaluacion:
+                            if (imprimirEvaluaciones)
+                                Console.WriteLine(val);
+                            break;
+                    }
+                }
+            }
+        }
+
+        public Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>> ObtenerDiccionarioObjetos()
+        {
+            var resultado = new Dictionary<LlaveDiccionario, IEnumerable<ObjetoEscuelaBase>>();
+            resultado.Add(LlaveDiccionario.Escuela, new[] { Escuela });
+            resultado.Add(LlaveDiccionario.Curso, Escuela.Cursos.Cast<ObjetoEscuelaBase>());
+            List<Alumno> lsAlumnos = new List<Alumno>();
+            List<Asignatura> lsAsignatuas = new List<Asignatura>();
+            List<Evaluacion> lsEvaluaciones = new List<Evaluacion>();
+            foreach (var curso in Escuela.Cursos)
+            {
+                lsAlumnos.AddRange(curso.Alumnos);
+                lsAsignatuas.AddRange(curso.Asignaturas);
+
+                foreach (var alumno in curso.Alumnos)
+                {
+                    lsEvaluaciones.AddRange(alumno.Evaluaciones);
+                }
+            }
+            resultado.Add(LlaveDiccionario.Alumno, lsAlumnos);
+            resultado.Add(LlaveDiccionario.Asignatura, lsAsignatuas);
+            resultado.Add(LlaveDiccionario.Evaluacion, lsEvaluaciones);
+
+            return resultado;
+        }
+
         public IReadOnlyList<ObjetoEscuelaBase> ObtenerListaObtetosEscuela(
             bool incluirCursos = true,
             bool incluirAsignaturas = true,
@@ -122,11 +186,11 @@ namespace CoreEscuela.App
         #region Métodos de Carga
         private void CargarEvaluaciones()
         {
+            var rand = new Random();
             foreach (var curso in Escuela.Cursos)
             {
                 foreach (var alumno in curso.Alumnos)
                 {
-                    var rand = new Random();
                     foreach (var asignatura in curso.Asignaturas)
                     {
                         alumno.Evaluaciones.Add(new Evaluacion
@@ -134,7 +198,7 @@ namespace CoreEscuela.App
                             Alumno = alumno,
                             Asignatura = asignatura,
                             Nombre = $"Evaluación: {asignatura.Nombre}",
-                            Calificacion = (float)rand.NextDouble() * 5
+                            Calificacion = MathF.Round((float)(rand.NextDouble() * 5), 2)
                         });
                     }
                 }
@@ -168,7 +232,7 @@ namespace CoreEscuela.App
                                 from a1 in apellido1
                                 select new Alumno() { Nombre = $"{n1} {n2} {a1}" });
 
-            return listaAlumnos.OrderBy(x => x.Id).Take(new Random().Next(15, 50)).ToList();
+            return listaAlumnos.OrderBy(x => x.Id).Take(new Random().Next(5, 15)).ToList();
         }
 
         private void CargarCursos()
