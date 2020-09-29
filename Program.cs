@@ -40,6 +40,52 @@ namespace CoreEscuela
             var lsEvaluacionesPorAsignatura = reporteador.ObtenerEvaluacionesPorAsignatura();
             var promedioAlumnosPorAsig = reporteador.ObtenerPromedioAlumnoPorAsignatura();
             var topAlumnosPorAsig = reporteador.ObtenerPromedioAlumnoPorAsignatura(3);
+
+            Printer.DibujarTitulo("Captura de una evaluación por consola");
+            var nuevaEvaluacion = new Evaluacion();
+            string nombre = "";
+            string calificacionStr = "";
+            float calificacion = 0;
+            WriteLine("Ingrese el nombre de la evaluación");
+            Printer.PresioneEnter();
+            nombre = ReadLine();
+            if (string.IsNullOrWhiteSpace(nombre))
+                WriteLine("El valor del nombre no puede ser vacio");
+
+            nuevaEvaluacion.Nombre = nombre;
+            WriteLine("El nombre ha sido capturado correctamente");
+
+            WriteLine("Ingrese la calificación de la evaluación");
+            Printer.PresioneEnter();
+            calificacionStr = ReadLine();
+            if (string.IsNullOrWhiteSpace(calificacionStr))
+                WriteLine("El valor de la calificación no puede ser vacio");
+            else
+            {
+                try
+                {
+                    calificacion = float.Parse(calificacionStr);
+                    WriteLine("El valor de la calificación no tiene el formato correcto"); if (calificacion < 0 && calificacion > 5)
+                        throw new ArgumentOutOfRangeException("La calificacion debe estar entre 0 y 5");
+                    else
+                    {
+                        nuevaEvaluacion.Calificacion = calificacion;
+                        WriteLine("La calificación ha sido capturada correctamente");
+                    }
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    WriteLine(ex.Message);
+                }
+                catch (Exception)
+                {
+                    WriteLine("El valor de la calificación tiene un formato incorrecto");
+                }
+                finally
+                {
+                    Printer.DibujarTitulo("finally");
+                }
+            }
         }
 
         private static void AccionDelEvento(object sender, EventArgs e)
