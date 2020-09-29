@@ -33,7 +33,13 @@ namespace CoreEscuela
                               select (ILugar)obj;
 
             var diccionarioObj = engine.ObtenerDiccionarioObjetos();
-            engine.ImprimirDiccionario(diccionarioObj, true);
+            // engine.ImprimirDiccionario(diccionarioObj, true);
+
+            var reporteador = new Reporteador(diccionarioObj);
+            var lsEvaluaciones = reporteador.ObtenerEvaluaciones();
+            var lsEvaluacionesPorAsignatura = reporteador.ObtenerEvaluacionesPorAsignatura();
+            var promedioAlumnosPorAsig = reporteador.ObtenerPromedioAlumnoPorAsignatura();
+            var topAlumnosPorAsig = reporteador.ObtenerPromedioAlumnoPorAsignatura(3);
         }
 
         private static void AccionDelEvento(object sender, EventArgs e)

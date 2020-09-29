@@ -197,7 +197,7 @@ namespace CoreEscuela.App
                         {
                             Alumno = alumno,
                             Asignatura = asignatura,
-                            Nombre = $"Evaluación: {asignatura.Nombre}",
+                            Nombre = asignatura.Nombre,
                             Calificacion = MathF.Round((float)(rand.NextDouble() * 5), 2)
                         });
                     }
